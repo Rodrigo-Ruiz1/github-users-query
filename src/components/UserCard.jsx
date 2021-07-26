@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 function UserCard(props) {
     return (
         <>
@@ -6,6 +7,7 @@ function UserCard(props) {
             <h4><a href={props.url}>{props.username}</a></h4>
             <p>{props.followers}</p>
             <p>{props.following}</p>
+            <Link to={`user/${props.username}`}>More</Link>
         </div>
     </>
     )

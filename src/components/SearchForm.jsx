@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import UserCardList from './UserCardList';
+import UserProfile from './UserProfile';
 
 class SearchForm extends Component {
     constructor(props) {
@@ -22,7 +24,7 @@ class SearchForm extends Component {
     }
 
     _handleChange(field, val) {
-        this.setState ({
+        this.setState({
             [field]: val
         })
     }
@@ -37,13 +39,20 @@ class SearchForm extends Component {
     render() {
         return (
             <>
-            <form onSubmit={this._handleSubmit}>
-                <input type="text" placeholder="Enter a username" value={this.state.userName} onChange={(event) => {
-                    this._handleChange('userName', event.target.value)
-                }}></input>
-                <button type="submit">Search</button>
-            </form>
-            <UserCardList users={this.state.users}/>
+                <Router>
+                    <Route exact path="/">
+                        <form onSubmit={this._handleSubmit}>
+                            <input type="text" placeholder="Enter a username" value={this.state.userName} onChange={(event) => {
+                                this._handleChange('userName', event.target.value)
+                            }}></input>
+                            <button type="submit">Search</button>
+                        </form>
+                        <UserCardList users={this.state.users} />
+                    </Route>
+                    <Route path='/user/:username'>
+                        <UserProfile users={this.state.users} />
+                    </Route>
+                </Router>
             </>
         )
     }
